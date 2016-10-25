@@ -2,28 +2,17 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var User = require('./models/user').User;
 
 var hostname = 'webrtctest2.zapto.org';
 var port = 80;
 
 var app = express();
-var Schema = mongoose.Schema;
-
-mongoose.connect('mongodb://localhost/chat');
-
-var userSchemaJSON = {
-  email: String,
-  password: String
-};
-
-var user_schema = new Schema(userSchemaJSON);
-
-var User = mongoose.model('User', user_schema);
 
 app.use('/static',express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 app.set('view engine', 'jade')
 
 app.get('/', function(req, res) {
